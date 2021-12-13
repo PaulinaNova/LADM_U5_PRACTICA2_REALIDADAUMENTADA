@@ -80,6 +80,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("idNombre",nom)
             startActivity(intent)
         }
+        acerca.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setMessage(" Ramón Antonio Estrada Torres \n Abril Libertad Pérez Rios \n Paulina Alejandra Nova Ramírez \n Erick Octavio Nolaco Machuca")
+                .setTitle("INTEGRANTES")
+                .setPositiveButton("OK"){r, q->
+                }
+                .show()
+        }
+        tienda.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setMessage(" FAMSA TEPIC \n\n\n Farmacia Sufacen")
+                .setTitle("TIENDAS CERNCAS")
+                .setPositiveButton("OK"){r, q->
+                }
+                .show()
+        }
+        comida.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setMessage(" Café Diligencias Bicentenario \n\n\n Subway \n\n\n Hotel Real de Don Juan")
+                .setTitle("LUGARES DE COMIDA")
+                .setPositiveButton("OK"){r, q->
+                }
+                .show()
+        }
+
         locacion = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val oyente = Oyente(this)
         locacion.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,01f,oyente)
@@ -91,51 +116,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1)
         }
         mMap = googleMap
-
         // Add a marker in Sydney and move the camera
         val plazabic = LatLng(21.507286193119725, -104.89298885456299)
-        //val bounds = LatLngBounds(LatLng(21.506996317775542, -104.89348146939408),LatLng(21.50733819461058, -104.89254806060846))
 
         mMap.addMarker(MarkerOptions().position(plazabic).title("Marcador in Plaza Bicentenario"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(plazabic,19f))
         mMap.uiSettings.isZoomControlsEnabled =  true
         mMap.isMyLocationEnabled = true
-        miUbicacion()
     }
 
-    fun miUbicacion(){
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        LocationServices.getFusedLocationProviderClient(this)
-            .lastLocation.addOnSuccessListener {
-                var geoPosicion = GeoPoint(it.latitude, it.longitude)
-                for(item in posicion){
-                    if(item.estoyEn(geoPosicion)){
-                        AlertDialog.Builder(this)
-                            .setMessage("Ver información de ${item.nombre}")
-                            .setTitle("ATENCIÓN")
-                            .setPositiveButton("OK"){p, q->
-                                val intent = Intent(this, MainActivity ::class.java)
-                                nom = awt.text.toString()
-                                intent.putExtra("idNombre",nom)
-                                startActivity(intent)
-                            }.setNegativeButton("No"){p, q->}
-                            .show()
-                        break
-                    }
-                }
-            }.addOnFailureListener {
-                Toast.makeText(this,"ERROR AL OBTENER UBICACIÓN", Toast.LENGTH_LONG).show()
-            }
-    }
 }
 
 class Oyente(puntero:MapsActivity) :LocationListener{
@@ -146,10 +135,14 @@ class Oyente(puntero:MapsActivity) :LocationListener{
             if(item.estoyEn(geoPosicion)){
                 if(item.estoyEn(geoPosicion)){
                     AlertDialog.Builder(p)
-                        .setMessage("Usted se encuentra en ${item.nombre}")
-                        .setTitle("ATENCIÓN")
+                        .setMessage("Usted se encuentra en ${item.nombre}. ¿Desea conocer más acerca de este lugar?")
                         .setPositiveButton("OK"){r, q->
-                            Toast.makeText(p,item.nombre,Toast.LENGTH_LONG).show()
+                            val intent = Intent(p, MainActivity ::class.java)
+                            intent.putExtra("idNombre",item.nombre)
+                            p.startActivity(intent)
+                        }
+                        .setNegativeButton("NO"){d,i->
+
                         }
                         .show()
                 }
