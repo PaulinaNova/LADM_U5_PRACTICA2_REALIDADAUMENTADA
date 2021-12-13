@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LADM_U5_P1_FINAL</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <array name="lugares">
+        <item>Estatua Esteban Baca Calderon</item>
+        <item>Palacio de Gobierno</item>
+        <item>Hotel Real de Don Juan</item>
+        <item>Farmacia Sufacen</item>
+        <item>FAMSA Tepic</item>
+        <item>CIS Megacable Centro</item>
+        <item>Subway</item>
+        <item>Cafe Diligencias Bicentenario</item>
+        <item>Zona Deportiva</item>
+    </array>
+</resources>

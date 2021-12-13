@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre Lugar"
+        android:textColor="@color/black"
+        android:textSize="48dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:id="@+id/txtNombre"/>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="110dp">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:id="@+id/imagen1"
+                />
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:id="@+id/imagen2"
+                />
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:id="@+id/imagen3"
+                />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="300dp"
+        android:text="Horario:"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="180dp"
+        android:layout_marginBottom="280dp"
+        android:text="Hora - Hora"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        android:id="@+id/txtHora"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="270dp"
+        android:text="DESCRIPCION: "
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp"
+        android:text="Constituye uno de los puntos nodales de la llamada “tradición de las tumbas de tiro” que se desarrolló entre el 200 a.C y el 600 d.C. "
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        android:id="@+id/txtDescripcion"/>
+
+</RelativeLayout>
