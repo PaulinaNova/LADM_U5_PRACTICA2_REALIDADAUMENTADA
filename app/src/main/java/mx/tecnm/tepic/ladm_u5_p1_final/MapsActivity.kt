@@ -34,11 +34,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var awt : AutoCompleteTextView
     private var list: ArrayList<String>? = null
     private var baseRemota = FirebaseFirestore.getInstance()
-    var nom = ""
+    var nom = "Plaza Bicentenario"
     val posicion = ArrayList<Data>()
     private lateinit var locacion:LocationManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1)
         }
@@ -47,6 +48,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        locacion = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val oyente = Oyente(this)
+        locacion.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,01f,oyente)
         awt = findViewById(R.id.buscar)
         list = ArrayList()
         baseRemota.collection("lugares")
@@ -105,9 +109,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .show()
         }
 
-        locacion = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val oyente = Oyente(this)
-        locacion.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,01f,oyente)
+
+
+
 
     }
 
@@ -133,22 +137,19 @@ class Oyente(puntero:MapsActivity) :LocationListener{
         val geoPosicion = GeoPoint(location.latitude,location.longitude)
         for(item in p.posicion){
             if(item.estoyEn(geoPosicion)){
-                if(item.estoyEn(geoPosicion)){
-                    AlertDialog.Builder(p)
-                        .setMessage("Usted se encuentra en ${item.nombre}. ¿Desea conocer más acerca de este lugar?")
-                        .setPositiveButton("OK"){r, q->
-                            val intent = Intent(p, MainActivity ::class.java)
-                            intent.putExtra("idNombre",item.nombre)
-                            p.startActivity(intent)
-                        }
-                        .setNegativeButton("NO"){d,i->
+                AlertDialog.Builder(p)
+                    .setMessage("Usted se encuentra en ${item.nombre}. ¿Desea conocer más acerca de este lugar?")
+                    .setPositiveButton("OK"){r, q->
+                        val intent = Intent(p, MainActivity ::class.java)
+                        intent.putExtra("idNombre",item.nombre)
+                        p.startActivity(intent)
+                    }
+                    .setNegativeButton("NO"){d,i->
 
-                        }
-                        .show()
-                }
+                    }
+                    .show()
             }
         }
     }
-
 }
 
